@@ -1,0 +1,57 @@
+body, body *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.scoreBoardContainer{
+    border: 5px solid red;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+.scores{
+    font-size: 100px;
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+    align-items: center;
+}
+.points{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.points > button{
+    width: 20px;
+    height: 20px;
+    padding: 30px 60px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+}
+.points > p{
+    font-size: 100px;
+    color: red;
+}
+.history{
+    padding: 20px 40px;
+    border: 1px solid black; 
+    width: 300px;
+    height: 500px;
+}
+.history p {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.history > div{
+    height: 450px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.history > div::-webkit-scrollbar{
+    display: none;
+}
