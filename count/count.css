@@ -1,0 +1,37 @@
+body, body *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.countContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    background-color: rgb(0, 84, 144);
+    width: 500px;
+    height: 500px;
+    border-radius: 1rem;
+}
+.countContainer .count{
+    font-size: 4rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+    color: white;
+}
+.countContainer > .charInput{
+    width: 90%;
+    height: 2rem;
+    padding: 0.5rem 1rem;
+}
+.countContainer > hr{
+    width: 90%;
+}
