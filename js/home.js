@@ -11,69 +11,126 @@ btnDOM.addEventListener('click', doSomethingSilly)
 function rand() {
     return Math.floor(Math.random() * 256);
 }
+
+////////////////////////////////////////////////////
+
 const btnsDOM = document.querySelectorAll('.points > button');
 const historyDOM = document.getElementById('history');
 const team1DOM = document.getElementById('team1');
 const team2DOM = document.getElementById('team2');
 
-// const minus1DOM = document.getElementById('minus1');
-// const minus2DOM = document.getElementById('minus2');
-// const minus3DOM = document.getElementById('minus3');
-// const plus1DOM = document.getElementById('plus1');
-// const plus2DOM = document.getElementById('plus2');
-// const plus3DOM = document.getElementById('plus3');
+let scoreData = [];
+const localData = localStorage.getItem('scores');
+if (localData !== null) {
+    scoreData = JSON.parse(localData);
+    history();
+    countPoints();
+}
 
-// minus1DOM.addEventListener('click', minusOne);
-// minus2DOM.addEventListener('click', minusTwo);
-// minus3DOM.addEventListener('click', minusThree);
-// plus1DOM.addEventListener('click', plusOne);
-// plus2DOM.addEventListener('click', plusTwo);
-// plus3DOM.addEventListener('click', plusThree);
+btnsDOM[2].addEventListener('click', () => {
+    scoreData.push({
+        team: 'one',
+        points: 1,
+        color: 'blue',
+        time: Date.now(),
+    })
+    history();
+    countPoints();
+});
+btnsDOM[1].addEventListener('click', () => {
+    scoreData.push({
+        team: 'one',
+        points: 2,
+        color: 'blue',
+        time: Date.now(),
+    })
+    history();
+    countPoints();
+});
+btnsDOM[0].addEventListener('click', () => {
+    scoreData.push({
+        team: 'one',
+        points: 3,
+        color: 'blue',
+        time: Date.now(),
+    })
+    history();
+    countPoints();
+});
+btnsDOM[3].addEventListener('click', () => {
+    scoreData.push({
+        team: 'two',
+        points: 1,
+        color: 'green',
+        time: Date.now(),
+    })
+    history();
+    countPoints();
+});
+btnsDOM[4].addEventListener('click', () => {
+    scoreData.push({
+        team: 'two',
+        points: 2,
+        color: 'green',
+        time: Date.now(),
+    })
 
-// function plusOne() {
-//     team1DOM.textContent = parseInt(team1DOM.textContent) + 1;
-//     historyDOM.innerHTML = `<p style="color:violet">Team one scored 1 point</p>` + historyDOM.innerHTML;
-// }
-// function minusOne() {
-//     team2DOM.innerText = parseInt(team2DOM.innerText) + 1;
-//     historyDOM.innerHTML = `<p style="color:blue">Team two scored 1 point</p>` + historyDOM.innerHTML;
+    history();
+    countPoints();
+});
+btnsDOM[5].addEventListener('click', () => {
+    scoreData.push({
+        team: 'two',
+        points: 3,
+        color: 'green',
+        time: Date.now(),
+    })
+    history();
+    countPoints();
+});
 
-// }
-// function plusTwo() {
-//     team1DOM.textContent = parseInt(team1DOM.textContent) + 2;
-//     historyDOM.innerHTML = `<p style="color:violet">Team one scored 2 points</p>` + historyDOM.innerHTML;
 
-// }
-// function minusTwo() {
-//     team2DOM.innerText = parseInt(team2DOM.innerText) + 2;
-//     historyDOM.innerHTML = `<p style="color:blue">Team two scored 2 points</p>` + historyDOM.innerHTML;
-// }
-// function plusThree() {
-//     team1DOM.textContent = parseInt(team1DOM.textContent) + 3;
-//     historyDOM.innerHTML = `<p style="color:violet">Team one scored 3 point</p>` + historyDOM.innerHTML;
-
-// }
-// function minusThree() {
-//     team2DOM.innerText = parseInt(team2DOM.innerText) + 3;
-//     historyDOM.innerHTML = `<p style="color:blue">Team two scored 3 points</p>` + historyDOM.innerHTML;
-// }
-
-btnsDOM[2].addEventListener('click', () => team1(1, 1));
-btnsDOM[1].addEventListener('click', () => team1(2, 1));
-btnsDOM[0].addEventListener('click', () => team1(3, 1));
-btnsDOM[3].addEventListener('click', () => team1(1, 2));
-btnsDOM[4].addEventListener('click', () => team1(2, 2));
-btnsDOM[5].addEventListener('click', () => team1(3, 2));
-
-function team1(coof = 0, team) {
-    let s = '';
-    coof === 1 ? s = '' : s = 's'
-    if (team === 1) {
-        team1DOM.textContent = parseInt(team1DOM.textContent) + coof;
-        historyDOM.innerHTML = `<p style="color:blue">Team one scored ${coof} point${s}</p>` + historyDOM.innerHTML;
-    } else {
-        team2DOM.textContent = parseInt(team2DOM.textContent) + coof;
-        historyDOM.innerHTML = `<p style="color:violet">Team one scored ${coof} point${s}</p>` + historyDOM.innerHTML;
+function history() {
+    localStorage.setItem('scores', JSON.stringify(scoreData))
+    let HTML = ''
+    console.log(scoreData);
+    for (const score of scoreData) {
+        HTML += `
+        <div class="score">
+        <p >Time: ${getTime(score.time)} </p>
+        <p style="color:${score.color}">Team ${score.team} scored ${score.points} point${score.points > 1 ? 's' : ''}</p>
+        <button class="delete">Delete</button>
+        </div>`;
+    }
+    historyDOM.innerHTML = HTML;
+    const scoresDOM = document.querySelectorAll('.score');
+    for (let i = 0; i < scoresDOM.length; i++) {
+        scoresDOM[i].querySelector('button').addEventListener('click', () => {
+            scoreData.splice(i, 1);
+            localStorage.setItem('scores', JSON.stringify(scoreData))
+            localStorage.setItem
+            countPoints();
+            history();
+        })
     }
 }
-console.log(location)
+function countPoints() {
+    let oneTotal = 0;
+    let twoTotal = 0;
+    for (const score of scoreData) {
+        if (score.team === 'one') {
+            oneTotal += score.points;
+        } else {
+            twoTotal += score.points;
+        }
+    }
+    team1DOM.textContent = oneTotal;
+    team2DOM.textContent = twoTotal;
+}
+
+function getTime(ms) {
+    const d = new Date(ms);
+    return `${(d.getHours() + '').padStart(2, 0)}:${(d.getMinutes() + '').padStart(2, 0)}:${(d.getSeconds() + '').padStart(2, 0)}`;
+}
+
+
