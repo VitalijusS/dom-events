@@ -6,7 +6,7 @@ function doSomethingSilly() {
     h1DOM.textContent = 'Labas rytas!';
     h1DOM.style.color = `rgb(${rand()},${rand()},${rand()})`;
 }
-btnDOM.addEventListener('click', doSomethingSilly)
+btnDOM.addEventListener('click', doSomethingSilly);
 
 function rand() {
     return Math.floor(Math.random() * 256);
@@ -91,9 +91,8 @@ btnsDOM[5].addEventListener('click', () => {
 
 
 function history() {
-    localStorage.setItem('scores', JSON.stringify(scoreData))
-    let HTML = ''
-    console.log(scoreData);
+    localStorage.setItem('scores', JSON.stringify(scoreData));
+    let HTML = '';
     for (const score of scoreData) {
         HTML += `
         <div class="score">
@@ -107,8 +106,7 @@ function history() {
     for (let i = 0; i < scoresDOM.length; i++) {
         scoresDOM[i].querySelector('button').addEventListener('click', () => {
             scoreData.splice(i, 1);
-            localStorage.setItem('scores', JSON.stringify(scoreData))
-            localStorage.setItem
+            localStorage.setItem('scores', JSON.stringify(scoreData));
             countPoints();
             history();
         })
@@ -130,7 +128,10 @@ function countPoints() {
 
 function getTime(ms) {
     const d = new Date(ms);
-    return `${(d.getHours() + '').padStart(2, 0)}:${(d.getMinutes() + '').padStart(2, 0)}:${(d.getSeconds() + '').padStart(2, 0)}`;
+    return `${d.getFullYear()}-${(d.getMonth() + 1 + '').
+        padStart(2, 0)}-${((d.getDate() + '').padStart(2, 0))} ${(d.getHours() + '').
+            padStart(2, 0)}:${(d.getMinutes() + '').
+                padStart(2, 0)}:${(d.getSeconds() + '').padStart(2, 0)}`;
 }
 
 
